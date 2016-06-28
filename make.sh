@@ -1,3 +1,3 @@
 
 javac -d bin -sourcepath src -cp ".:lib/*:bin/" src/Main.java 
-java -cp "bin:lib/*" Main
+java -cp -Xmx50g "bin:lib/*" Main 80 90
