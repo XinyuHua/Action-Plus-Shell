@@ -109,7 +109,7 @@ public class extractActionConceptRunner implements Runnable {
                         }
 
                         if (PRINT_INSTANCE) {
-                            outputBuffer += "\t" + subj + "_" + verb + "_" + obj + "(";
+                            outputBuffer += "\t" + subj + "_" + verb + "_" + obj + "( ";
                         }
                         if (subjConcept.size() > 0 && objConcept.size() > 0) {
                             for (String subjc : subjConcept) {
@@ -123,17 +123,17 @@ public class extractActionConceptRunner implements Runnable {
                         } else if (subjConcept.size() == 0) {
                             for (String objc : objConcept) {
                                 acFound++;
-                                outputBuffer += "\t_" + verb + "_" + objc + ",";
+                                outputBuffer += "_" + verb + "_" + objc + ",";
                             }
                         } else {
                             for (String subjc : subjConcept) {
                                 acFound++;
-                                outputBuffer += "\t" + subjc + "_" + verb + "_,";
+                                outputBuffer += subjc + "_" + verb + "_,";
                             }
                         }
                         if(PRINT_INSTANCE) {
-                            outputBuffer += ")";
-                            }
+                            outputBuffer += " )";
+                        }
                     } else {
                         int argumentIdx = 0;
                             if(subj.equals("")){
