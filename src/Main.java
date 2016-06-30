@@ -48,14 +48,10 @@ public class Main {
 
 		long startTime = System.nanoTime();
 
-		//buildNounList();
-		//postagNewsTitle(70,100);
-		//extractVerb();
-		//buildVerbDict();
         Integer lower = Integer.parseInt( args[ 0 ] );
         Integer upper = Integer.parseInt( args[ 1 ] );
-		extractActionConcept(lower , upper);
-		//filterArgumentDict();
+	//	extractActionConcept(lower , upper);
+        extractActionConceptGlobally(lower, upper);
 		//extractActionConcept(80, 90);
 		long endTime = System.nanoTime();
 		long duration = endTime - startTime;
@@ -74,6 +70,7 @@ public class Main {
 		System.out.println(dateOutput);
 
 	}
+
 	public static void extractActionConcept(int l, int u)throws Exception{
 		Extraction e = new Extraction(l, u, offset);
 		e.extractActionConceptFromActionInstance();
@@ -82,6 +79,11 @@ public class Main {
     public static void extractActionInstance(int l, int u)throws Exception{
         Extraction e = new Extraction(l, u, offset);
         e.extractActionInstanceFromNewsBody();
+    }
+
+    public static void extractActionConceptGlobally(int l, int u)throws Exception{
+        Extraction e = new Extraction(l, u, offset);
+        e.extractActionConceptGlobally();
     }
 }
 
