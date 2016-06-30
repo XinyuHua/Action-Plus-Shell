@@ -103,7 +103,7 @@ public class Probase {
             ++cnt;
             if(cnt % 1000000 == 0)
             {
-                System.out.println( Integer.toString( cnt ) + " Lines loaded(13949064 lines in total )");
+                System.out.println( Double.toString( cnt / 1e6) + " million Lines loaded(69 millions in total )");
                 System.gc();
             }
         }
@@ -128,6 +128,20 @@ public class Probase {
         }
         return result;
     }
+
+    public Integer getPop(String concept, String instance)throws Exception{
+        Integer result = 0;
+        if(entityIdMap.containsKey(concept) && entityIdMap.containsKey(instance)){
+            Integer conceptId = entityIdMap.get(concept);
+            Integer instanceId = entityIdMap.get(instance);
+            Integer[] key = { conceptId, instanceId};
+            if(pairFreqMap.containsKey(Arrays.asList(key))){
+                result = pairFreqMap.get(Arrays.asList(key))[1];
+            }
+        }
+        return result;
+    }
+
 
     public boolean isProbaseEntity(String entity)throws Exception{
         return entitySet.contains(entity);
@@ -174,7 +188,7 @@ public class Probase {
                 for(Integer conceptId : tmpList){
                     String concept = entityList.get(conceptId);
                     Integer[] pair = {conceptId, instanceId};
-                    hyper2Freq.put(concept, pairFreqMap.get(Arrays.asList(pair))[ 0 ]);
+                    hyper2Freq.put(concept, pairFreqMap.get(Arrays.asList(pair))[ 1 ]);
                 }
                 ValueComparatorInt bvc = new ValueComparatorInt(hyper2Freq);
                 TreeMap<String, Integer> sortedMap = new TreeMap<>(bvc);

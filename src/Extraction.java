@@ -77,6 +77,37 @@ public class Extraction {
         }
         return;
     }
+	
+	   public void extractActionConceptGlobally()throws Exception{
+        loadArgumentGlobal();
+        int size = upperBound - lowerBound;
+
+        Wordnet wn = new Wordnet(true);
+
+        Probase[] pcs = new Probase[size];
+        for(int i = 0; i < size; ++i){
+            pcs[ i ] = new Probase();
+        }
+        Probase.initialization();
+
+        Runnable[] eNA = new Runnable[size];
+        for(int i = 0; i < size; ++i){
+            eNA[ i ] = new extractActionConceptGlobalRunner(i + lowerBound, offset, subjSet, objSet,
+                    pcs[ i ], wn, ACI_OUTPUT, ACC_GLB_OUTPUT );
+        }
+
+        Thread[] tdA = new Thread[size];
+        for(int i = 0; i < size; ++i){
+            tdA[ i ] = new Thread(eNA[ i ]);
+            tdA[ i ].start();
+        }
+
+        for(int i = 0; i < size; ++i){
+            tdA[ i ].join();
+        }
+
+        return;
+    }
 
     public void extractActionConceptFromActionInstance()throws Exception{
         int size = upperBound - lowerBound;
@@ -155,5 +186,23 @@ public class Extraction {
         }
         inflReader.close();
 
+    }
+	
+	private void loadArgumentGlobal()throws Exception{
+        subjSet = new HashSet<>();
+        objSet = new HashSet<>();
+        BufferedReader subjReader = new BufferedReader(new FileReader(ARG_GLB + "subj.txt"));
+        BufferedReader objReader = new BufferedReader(new FileReader(ARG_GLB + "obj.txt"));
+        String line;
+        while((line = subjReader.readLine())!=null){
+            subjSet.add(line);
+        }
+
+        while((line = objReader.readLine()) != null){
+            objSet.add(line);
+        }
+
+        subjReader.close();
+        objReader.close();
     }
 }
