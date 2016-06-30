@@ -24,8 +24,10 @@ public class Extraction {
     private static final String ACI_T_OUTPUT = "dat/action/instance_extracted/with_targeted_verbs/";
     private static final String ACI_OUTPUT = "dat/action/instance_extracted/";
     private static final String ACC_OUTPUT = "dat/action/concept_extracted/yu_10/";
+    private static final String ACC_GLB_OUTPUT = "dat/action/concept_extracted/yu_10_global/";
 
     private static final String ARG_URL = "dat/argument/yu_10_filtered/";
+    private static final String ARG_GLB = "dat/argument/yu_10_global/"; 
 
     private int lowerBound;
     private int upperBound;
@@ -36,6 +38,8 @@ public class Extraction {
 
     List<String> verbList;
     List<Set<String>> inflectionList;
+    HashSet<String> subjSet;
+    HashSet<String> objSet;
 
     public Extraction(int l, int u, int o){
         this.lowerBound = l;
